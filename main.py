@@ -111,9 +111,18 @@ session.add_all([s1, s2])
 session.add_all([st1, st2, st3, st4, st5, st6, st7])
 session.add_all([sa1, sa2, sa3, sa4, sa5, sa6, sa7, sa8, sa9])
 
-writer = input('Input writer name')
+#доработанная часть кода
+#вроде бы учёл все ваши замечания
 
-selected = session.query(Book.title, Shop.name, Sale.price, Sale.date_sale).join(Publisher).join(Stock).join(Shop).join(Sale).filter(Publisher.name == writer)
-for s in selected.all():
-    print(f'{s[0]} | {s[1]} | {s[2]} | {s[3]}')
+writer = input('Input writer name or id')
+query = session.query(Book.title, Shop.name, Sale.price, Sale.date_sale).join(Publisher).join(Stock).join(Shop).join(Sale)
+if writer.isdigit():
+    query = query.filter(Publisher.id == writer).all()
+else:
+    query = query.filter(Publisher.name == writer).all()
+
+for title, name, price, date_sale in query:
+    print(f"{title:<40} | {name:<10} | {price:<8} | {date_sale}")
+
+session.commit()
     
