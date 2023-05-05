@@ -115,13 +115,5 @@ writer = input('Input writer name')
 
 selected = session.query(Book.title, Shop.name, Sale.price, Sale.date_sale).join(Publisher).join(Stock).join(Shop).join(Sale).filter(Publisher.name == writer)
 for s in selected.all():
-    print(s)
+    print(f'{s[0]} | {s[1]} | {s[2]} | {s[3]}')
     
-    
-#выдаёт такой результат, почему стоимость и дата так отображаются?
-#('Tom Soyer', 'Knigi', Decimal('185.00'), datetime.date(2023, 4, 20))
-#('Tom Soyer', 'Bukvi', Decimal('190.00'), datetime.date(2023, 4, 20))
-#('Gek Finn', 'Knigi', Decimal('220.00'), datetime.date(2023, 2, 15))
-#('Gek Finn', 'Bukvi', Decimal('240.00'), datetime.date(2023, 3, 15))
-#('Tom Soyer', 'Knigi', Decimal('215.00'), datetime.date(2023, 3, 16))
-#('Tom Soyer', 'Bukvi', Decimal('218.00'), datetime.date(2023, 3, 16))
